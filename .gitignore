@@ -1,4 +1,6 @@
 node_modules
 coverage
 .dev.vars
+.env
+.env.local
 .wrangler
