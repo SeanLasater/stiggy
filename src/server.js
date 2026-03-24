@@ -392,6 +392,19 @@ async function sendAdminMessage(interaction, env, message) {
   return true;
 }
 
+function formatSlashOptions(options = []) {
+  if (!Array.isArray(options) || options.length === 0) {
+    return '';
+  }
+
+  const concise = options
+    .map(option => `${option.name}=${option.value}`)
+    .join(' ')
+    .trim();
+
+  return concise ? ` opts:${concise}` : '';
+}
+
 async function deleteOriginalInteractionMessage(interaction, env) {
   const appId = env.DISCORD_APPLICATION_ID || interaction.application_id;
   const interactionToken = interaction.token;
@@ -540,16 +553,10 @@ router.post('/', async (request, env, ctx) => {
         || interaction?.user?.username
         || 'Unknown user';
       const slashCommandName = interaction?.data?.name || 'unknown-command';
+      const slashOptions = formatSlashOptions(interaction?.data?.options);
+      const dmStatus = sent ? 'dm:ok' : 'dm:fail';
 
-      await sendAdminMessage(interaction, env, `${username} ran /${slashCommandName}`);
-
-      if (!sent) {
-        await sendAdminMessage(
-          interaction,
-          env,
-          `⚠️ Failed to DM ${username} for /${slashCommandName}.`,
-        );
-      }
+      await sendAdminMessage(interaction, env, `/` + `${slashCommandName} by ${username}${slashOptions} ${dmStatus}`);
 
       await deleteOriginalInteractionMessage(interaction, env);
     })();
