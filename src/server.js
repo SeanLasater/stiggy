@@ -20,10 +20,8 @@ import {
   TUNECAMBERTHRUST_COMMAND,
   TUNETRANSMISSION_COMMAND, 
   TUNEDIFFERENTIAL_COMMAND,
-  RACERESTRICTIONS_COMMAND,
 } from './commands.js';
 
-import { DAMAGE_CHOICES } from './damageData.js';
 import { analyzeDifferentialTuning } from './diffData.js';
 import { TRACK_CHOICES, TRANSMISSION_TUNINGS } from './transData.js';
 import { TIRE_CHOICES } from './downforceData.js';
@@ -231,63 +229,6 @@ function handleTuneTransmissionCommand(interaction) {
         ...gearFields,
       ],
       footer: { text: 'Optimize for track characteristics and car setup' },
-      timestamp: new Date().toISOString(),
-    }],
-  };
-}
-
-// ──────────────────────────────────────────────────────────────
-// RACE RESTRICTIONS COMMAND HANDLER
-// This function processes the /race-restrictions command and returns a formatted restrictions message.
-// ──────────────────────────────────────────────────────────────
-
-function handleRaceRestrictionsCommand(interaction) {
-  const { data } = interaction;
-  const options = Object.fromEntries((data.options ?? []).map(opt => [opt.name, opt.value]));
-  const name = options.name || '';
-  const classOrCar = options.class || '';
-  const tyreValue = options.tyre || '';
-  const prohibited = options.prohibited || '';
-  const damageValue = options.damage || '';
-  const notes = options.notes || '';
-
-  // Get current day of the month and add ordinal suffix
-  const today = new Date();
-  const dayOfMonth = today.getDate();
-  
-  // Function to add ordinal suffix (1st, 2nd, 3rd, 4th, etc.)
-  function getOrdinalDay(n) {
-    if (n > 3 && n < 21) return `${n}th`;
-    switch (n % 10) {
-      case 1: return `${n}st`;
-      case 2: return `${n}nd`;
-      case 3: return `${n}rd`;
-      default: return `${n}th`;
-    }
-  }
-  
-  const ordinalDay = getOrdinalDay(dayOfMonth);
-
-  // Look up tire name from TIRE_CHOICES
-  const tireChoice = TIRE_CHOICES.find(t => t.value === tyreValue);
-  const tyreName = tireChoice ? tireChoice.name : tyreValue;
-
-  // Look up damage name from DAMAGE_CHOICES
-  const damageChoice = DAMAGE_CHOICES.find(d => d.value === damageValue);
-  const damageName = damageChoice ? damageChoice.name : damageValue;
-
-  // Build the description with proper formatting
-  let description = `**${name}**\n\n*Livery Required!!*\n\n**Class :** ${classOrCar}\n\n**Tyre :** ${tyreName}\n\n**Prohibited :** ${prohibited}\n\n**Damage :** ${damageName}`;
-  
-  if (notes) {
-    description += `\n\n${notes}`;
-  }
-
-  return {
-    embeds: [{
-      title: `Wednesday the ${ordinalDay} Restrictions :`,
-      description: description,
-      color: 0xff4500,
       timestamp: new Date().toISOString(),
     }],
   };
@@ -529,11 +470,6 @@ router.post('/', async (request, env, ctx) => {
 
       case TUNEDIFFERENTIAL_COMMAND.name.toLowerCase(): {
         messagePayload = handleTuneDifferentialCommand(interaction);
-        break;
-      }
-
-      case RACERESTRICTIONS_COMMAND.name.toLowerCase(): {
-        messagePayload = handleRaceRestrictionsCommand(interaction);
         break;
       }
 

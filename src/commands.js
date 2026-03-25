@@ -1,6 +1,5 @@
 import { TIRE_CHOICES } from './downforceData.js';
 /*
-import { DAMAGE_CHOICES } from './damageData.js';
 import { TRACK_CHOICES } from './transData.js';
 import { CARS } from './carData.js';
 */
@@ -110,51 +109,5 @@ export const TUNEDIFFERENTIAL_COMMAND = {
       min_value: 0,
       max_value: 60,
     }
-  ],
-};
-
-// race-restrictions
-export const RACERESTRICTIONS_COMMAND = {
-  name: 'race-restrictions',
-  description: 'Post race restrictions for Wednesday events.',
-  options: [
-    {
-      name: 'name',
-      description: 'Race name',
-      type: 3, // string
-      required: true,
-    },
-    {
-      name: 'class',
-      description: 'Car class or specific car',
-      type: 3, // string
-      required: true,
-    },
-    {
-      name: 'tyre',
-      description: 'Tyre restrictions',
-      type: 3, // string
-      required: true,
-      autocomplete: true,
-    },
-    {
-      name: 'prohibited',
-      description: 'Prohibited items',
-      type: 3, // string
-      required: true,
-    },
-    {
-      name: 'damage',
-      description: 'Damage settings',
-      type: 3, // string
-      required: true,
-      autocomplete: true,
-    },
-    {
-      name: 'notes',
-      description: 'Additional notes (optional)',
-      type: 3, // string
-      required: false,
-    },
   ],
 };

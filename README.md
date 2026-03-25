@@ -7,7 +7,6 @@ Custom Discord Bot in dev.
 - `/tune-camberthrust`
 - `/tune-transmission`
 - `/tune-differential`
-- `/race-restrictions`
 
 ### Support Commands
 - `/contact-support`

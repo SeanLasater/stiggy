@@ -4,7 +4,7 @@
 
 import dotenv from 'dotenv';
 import process from 'node:process';
-import { TUNEDOWNFORCE_COMMAND, TUNECAMBERTHRUST_COMMAND, TUNETRANSMISSION_COMMAND, TUNEDIFFERENTIAL_COMMAND, RACERESTRICTIONS_COMMAND } from './commands.js';
+import { TUNEDOWNFORCE_COMMAND, TUNECAMBERTHRUST_COMMAND, TUNETRANSMISSION_COMMAND, TUNEDIFFERENTIAL_COMMAND } from './commands.js';
 
 /**
  * This file is meant to be run from the command line, and is not used by the
@@ -33,7 +33,7 @@ const response = await fetch(url, {
     Authorization: `Bot ${token}`,
   },
   method: 'PUT',
-  body: JSON.stringify([TUNEDOWNFORCE_COMMAND, TUNECAMBERTHRUST_COMMAND, TUNETRANSMISSION_COMMAND, TUNEDIFFERENTIAL_COMMAND, RACERESTRICTIONS_COMMAND]),
+  body: JSON.stringify([TUNEDOWNFORCE_COMMAND, TUNECAMBERTHRUST_COMMAND, TUNETRANSMISSION_COMMAND, TUNEDIFFERENTIAL_COMMAND]),
 });
 
 if (response.ok) {
