@@ -36,6 +36,6 @@
     "ngrok": "^5.0.0-beta.2",
     "prettier": "^3.2.5",
     "sinon": "^21.0.0",
-    "wrangler": "^4.13.2"
+    "wrangler": "^4.95.0"
   }
 }
